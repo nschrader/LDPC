@@ -10,7 +10,8 @@ classdef CheckNode < handle
     methods
         function self = CheckNode(index, connectedNodes)
             self.index = index;
-            self.connectedNodes = connectedNodes;
+            self.connectedNodes = List();
+            self.connectedNodes.append(connectedNodes);
         end
     end
     

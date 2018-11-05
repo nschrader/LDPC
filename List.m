@@ -22,6 +22,10 @@ classdef List < handle
         function r = size(self)
             r = length(self.array);
         end
+        
+        function r = iterator(self)
+            r = self.array;
+        end
     end
     
 end

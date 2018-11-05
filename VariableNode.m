@@ -16,8 +16,14 @@ classdef VariableNode < handle
             self.connectedNodes = List();
         end
         
-        function register(self, node)
+        function registerCheckNode(self, node)
             self.connectedNodes.append(node);
+        end
+        
+        function notifyCheckNodes(self)
+            for c = self.connectedNodes.iterator()
+                c.registerValue(self.value);
+            end
         end
         
         function r = decide(self)

@@ -13,10 +13,10 @@ classdef CheckNode < handle
             self.connectedNodes = List();
         end
         
-        function connectNodes(self, nodes)
+        function connectVariableNodes(self, nodes)
             self.connectedNodes.insert(nodes);
             for n = nodes
-                n.register(self);
+                n.registerCheckNode(self);
             end
         end
     end

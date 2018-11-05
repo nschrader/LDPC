@@ -15,6 +15,10 @@ end
 cNodes = List();
 for hi = H'
     connectedNodes = vNodes.get(hi==1);
-    cNodes.append(CheckNode(cNodes.size(), connectedNodes));
+    c = CheckNode(cNodes.size(), connectedNodes);
+    cNodes.append(c);
+    c.voteVariableNodes();
 end
+
+arrayfun(@(v) v.decide(), vNodes.iterator())
 

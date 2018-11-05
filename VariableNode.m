@@ -5,7 +5,8 @@ classdef VariableNode < handle
     properties
         index
         value
-        votes
+        voteOne = 0
+        voteZero = 0
     end
     
     methods
@@ -15,10 +16,11 @@ classdef VariableNode < handle
         end
         
         function r = decide(self)
-            if self.votes > 1
-                r = 1;
+            delta = self.voteOne - self.voteZero;
+            if delta == 0
+                r = self.value;
             else
-                r = 0;
+                r = double(delta > 0);
             end
         end
     end

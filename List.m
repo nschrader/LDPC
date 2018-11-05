@@ -3,7 +3,7 @@ classdef List < handle
     %   Detailed explanation goes here
     
     properties
-        array
+        array = []
     end
     
     methods

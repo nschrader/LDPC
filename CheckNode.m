@@ -1,23 +1,16 @@
-classdef CheckNode
+classdef CheckNode < handle
     %CHECKNODE Summary of this class goes here
     %   Detailed explanation goes here
     
     properties
+        index
         connectedNodes
     end
     
     methods
-        function self = CheckNode(connectedNodes)
+        function self = CheckNode(index, connectedNodes)
+            self.index = index;
             self.connectedNodes = connectedNodes;
-        end
-        
-        function factory = fromMatrixRow(row)
-            cNodes = [];
-            vNodes = [];
-            for r = row
-                vNodes = [vNodes CheckNodes(cNodes)];
-            end
-            factory = vNodes;
         end
     end
     

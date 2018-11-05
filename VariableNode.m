@@ -1,14 +1,16 @@
-classdef VariableNode
+classdef VariableNode < handle
     %VARIABLENODE Summary of this class goes here
     %   Detailed explanation goes here
     
     properties
+        index
         value
         votes
     end
     
     methods
-        function self = VariableNode(value)
+        function self = VariableNode(index, value)
+            self.index = index;
             self.value = value;
         end
         

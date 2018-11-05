@@ -6,7 +6,11 @@ classdef List < handle
         array
     end
     
-    methods
+    methods        
+        function insert(self, array)
+            self.array = array;
+        end
+        
         function append(self, val)
             self.array = [self.array val];
         end

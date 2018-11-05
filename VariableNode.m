@@ -5,6 +5,7 @@ classdef VariableNode < handle
     properties
         index
         value
+        connectedNodes
         votes
     end
     
@@ -12,6 +13,11 @@ classdef VariableNode < handle
         function self = VariableNode(index, value)
             self.index = index;
             self.value = value;
+            self.connectedNodes = List();
+        end
+        
+        function register(self, node)
+            self.connectedNodes.append(node);
         end
         
         function r = decide(self)

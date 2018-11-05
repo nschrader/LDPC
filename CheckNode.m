@@ -8,9 +8,16 @@ classdef CheckNode < handle
     end
     
     methods
-        function self = CheckNode(index, connectedNodes)
+        function self = CheckNode(index)
             self.index = index;
-            self.connectedNodes = connectedNodes;
+            self.connectedNodes = List();
+        end
+        
+        function connectNodes(self, nodes)
+            self.connectedNodes.insert(nodes);
+            for n = nodes
+                n.register(self);
+            end
         end
     end
     

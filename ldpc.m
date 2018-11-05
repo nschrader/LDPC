@@ -15,6 +15,9 @@ end
 cNodes = List();
 for hi = H'
     connectedNodes = vNodes.get(hi==1);
-    cNodes.append(CheckNode(cNodes.size(), connectedNodes));
+    c = CheckNode(cNodes.size());
+    c.connectNodes(connectedNodes);
+    cNodes.append(c);
 end
+    
 

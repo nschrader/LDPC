@@ -1,7 +1,4 @@
-classdef List < handle
-    %LIST Summary of this class goes here
-    %   Detailed explanation goes here
-    
+classdef List < handle   
     properties
         array = []
     end

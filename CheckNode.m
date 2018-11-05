@@ -1,7 +1,4 @@
-classdef CheckNode < handle
-    %CHECKNODE Summary of this class goes here
-    %   Detailed explanation goes here
-    
+classdef CheckNode < handle  
     properties
         index
         connectedNodes
@@ -23,7 +20,6 @@ classdef CheckNode < handle
                     end
                     sum = sum + vv.value;
                 end
-                [sum v.index self.index]
                 
                 isPair = @(x) (mod(x, 2) == 0);
                 if isPair(sum)

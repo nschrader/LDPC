@@ -1,7 +1,4 @@
-classdef VariableNode < handle
-    %VARIABLENODE Summary of this class goes here
-    %   Detailed explanation goes here
-    
+classdef VariableNode < handle  
     properties
         index
         value

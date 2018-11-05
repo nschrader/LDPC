@@ -1,24 +1,19 @@
-H = [
-        [0, 1, 0, 1, 1, 0, 0, 1]
-        [1, 1, 1, 0, 0, 1, 0, 0]
-        [0, 0, 1, 0, 0, 1, 1, 1]
-        [1, 0, 0, 1, 1, 0, 1, 0]
-    ];
+function decodeword = ldpc(codeword, parityMatrix)
+    C = codeword;
+    H = transpose(parityMatrix);
+    vNodes = List();
+    for ci = C
+        vNodes.append(VariableNode(vNodes.size(), ci));
+    end
 
-C = [1, 0, 0, 1, 0, 1, 0, 1];
+    cNodes = List();
+    for hi = H
+        connectedNodes = vNodes.get(hi==1);
+        c = CheckNode(cNodes.size(), connectedNodes);
+        cNodes.append(c);
+        c.voteVariableNodes();
+    end
 
-vNodes = List();
-for ci = C
-    vNodes.append(VariableNode(vNodes.size(), ci));
+    decodeword = arrayfun(@(v) v.decide(), vNodes.iterator());
 end
-
-cNodes = List();
-for hi = H'
-    connectedNodes = vNodes.get(hi==1);
-    c = CheckNode(cNodes.size(), connectedNodes);
-    cNodes.append(c);
-    c.voteVariableNodes();
-end
-
-arrayfun(@(v) v.decide(), vNodes.iterator())
 

@@ -1,34 +1,37 @@
 classdef CheckNode < handle  
     properties
-        index
-        connectedNodes
+        index % only useful for debugging
+        msgList
     end
     
     methods
-        function self = CheckNode(index, connectedNodes)
+        function self = CheckNode(index)
             self.index = index;
-            self.connectedNodes = List();
-            self.connectedNodes.append(connectedNodes);
+            self.msgList = List();
         end
         
-        function voteVariableNodes(self)
-            for v = self.connectedNodes.iterator()
-                sum = 0;
-                for vv = self.connectedNodes.iterator()
-                    if vv == v
-                        continue
+        function send(self, source, q0, q1)
+            msg = Message(source, q0, q1);
+            self.msgList.append(msg);
+        end
+        
+        function process(self)
+            messages = self.msgList;
+            self.msgList = List();
+            
+            for m = messages.iterator()
+                r0 = 1; %rij(0)
+                for mm = messages.iterator()
+                    if mm == m
+                        continue;
                     end
-                    sum = sum + vv.value;
+                    r0 = r0 * (1-2*mm.p1); % qi'j(1)
                 end
-                
-                isPair = @(x) (mod(x, 2) == 0);
-                if isPair(sum)
-                    v.voteZero = v.voteZero + 1;
-                else
-                    v.voteOne = v.voteOne + 1;
-                end
+                r0 = 0.5*r0 + 0.5;
+                m.source.send(self, r0);
             end
         end
+
     end
     
 end

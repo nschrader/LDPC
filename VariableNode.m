@@ -1,24 +1,35 @@
 classdef VariableNode < handle  
     properties
         index
-        value
-        voteOne = 0
-        voteZero = 0
+        tmp_p0 = 1
+        tmp_p1 = 1
+        probability % Pi
+        probabilityOne % qij(1)
+        probabilityZero % qij(0)
     end
     
     methods
         function self = VariableNode(index, value)
             self.index = index;
-            self.value = value;
+            self.probability = value;
+            self.probabilityOne = self.probability;
+            self.probabilityZero = 1 - self.probability;
+        end
+        
+        function update(self, probabilityZero, probabilityOne) % rij
+            self.tmp_p0 = self.tmp_p0 * probabilityZero;
+            self.tmp_p1 = self.tmp_p1 * probabilityOne;
         end
         
         function r = decide(self)
-            delta = self.voteOne - self.voteZero;
-            if delta == 0
-                r = self.value;
-            else
-                r = double(delta > 0);
+            P = self.probability;
+            K = 1/((1-P)*self.tmp_p0 + P*self.tmp_p1);
+            for 
+                self.probabilityZero(i) = K*(1-P)*self.tmp_p0;
+                self.probabilityOne(i) = K*P*self.tmp_p1;
             end
+            
+            
         end
     end
     

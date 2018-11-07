@@ -11,22 +11,23 @@ classdef CheckNode < handle
             self.connectedNodes.append(connectedNodes);
         end
         
-        function voteVariableNodes(self)
+        function probabilityZero = calculateProbability(self, variableNode)
+            v = variableNode;
+            probabilityZero = 0; % rij(0)
+            for vv = self.connectedNodes.iterator()
+                if vv == v
+                    continue
+                end
+                probabilityZero = probabilityZero * (1-2*vv.probabilityOne);
+            end
+            probabilityZero = 0.5*probabilityZero + 0.5;
+        end
+        
+        function updateVariableNodes(self)
             for v = self.connectedNodes.iterator()
-                sum = 0;
-                for vv = self.connectedNodes.iterator()
-                    if vv == v
-                        continue
-                    end
-                    sum = sum + vv.value;
-                end
-                
-                isPair = @(x) (mod(x, 2) == 0);
-                if isPair(sum)
-                    v.voteZero = v.voteZero + 1;
-                else
-                    v.voteOne = v.voteOne + 1;
-                end
+                probabilityZero = self.calculateProbability(v);
+                probabilityOne = 1 - probabilityZero;
+                v.update(probabilityZero, probabilityOne);
             end
         end
     end

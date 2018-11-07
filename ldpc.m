@@ -11,7 +11,7 @@ function decodeword = ldpc(codeword, parityMatrix)
         connectedNodes = vNodes.get(hi==1);
         c = CheckNode(cNodes.size(), connectedNodes);
         cNodes.append(c);
-        c.voteVariableNodes();
+        c.updateVariableNodes();
     end
 
     decodeword = arrayfun(@(v) v.decide(), vNodes.iterator());
